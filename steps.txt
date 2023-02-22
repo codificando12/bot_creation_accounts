@@ -1,0 +1,6 @@
+Hacer un bot con selenium que pueda ir leyendo un csv e ir creando,
+este bot va a crear una cuenta cada 5 segundos.
+
+1- hacer que el programa lea un csv
+2 - que el programa separe los datos.
+3 - que el programa cree las cuentas.
