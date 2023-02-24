@@ -8,11 +8,8 @@ from HtmlTestRunner import HTMLTestRunner
 
 class RegisterNewUser(unittest.TestCase):
 
-    def setUp(self):
-        self.driver = webdriver.Chrome(executable_path = r'C:\chrome-driver\chromedriver.exe')
-        driver = self.driver
-        driver.maximize_window()
-        driver.get('http://demo.onestepcheckout.com/')
+    # def setUp(self):
+    #     pass
     
     def test_new_user(self):
         firstname = first_name('MOCK_DATA.csv')
@@ -20,17 +17,22 @@ class RegisterNewUser(unittest.TestCase):
         e_mail = email('MOCK_DATA.csv')
         password_ind = password('MOCK_DATA.csv')
 
-        driver = self.driver
-        driver.find_element(By.XPATH, '//*[@id="header"]/div/div[2]/div/a/span[2]').click()
-        driver.find_element(By.LINK_TEXT, 'Log In').click()
+        for user in range(4, len(firstname)):
+            self.driver = webdriver.Chrome(executable_path = r'C:\chrome-driver\chromedriver.exe')
+            driver = self.driver
+            driver.maximize_window()
+            driver.get('http://demo.onestepcheckout.com/')
+            driver = self.driver
+            driver.find_element(By.XPATH, '//*[@id="header"]/div/div[2]/div/a/span[2]').click()
+            driver.find_element(By.LINK_TEXT, 'Log In').click()
 
-        create_account_button = driver.find_element(By.LINK_TEXT, 'CREATE AN ACCOUNT')
-        self.assertTrue(create_account_button.is_displayed() and create_account_button.is_enabled())
-        create_account_button.click()
+            create_account_button = driver.find_element(By.LINK_TEXT, 'CREATE AN ACCOUNT')
+            self.assertTrue(create_account_button.is_displayed() and create_account_button.is_enabled())
+            create_account_button.click()
 
-        self.assertEqual('Create New Customer Account', driver.title)
+            self.assertEqual('Create New Customer Account', driver.title)
         
-        for user in range(3, len(firstname)):
+        
             
             slot_firstname = driver.find_element(By.ID, 'firstname')
             slot_lastname = driver.find_element(By.ID, 'lastname')
@@ -49,11 +51,13 @@ class RegisterNewUser(unittest.TestCase):
             slot_confirm_password.send_keys(password_ind[user])
             slot_newsletter.click()
             submit_button.click()
+
+            self.driver.quit()
             
             
         
-    def tearDown(self):
-        self.driver.quit()
+    # def tearDown(self):
+    #     self.driver.quit()
 
 
 if __name__ == '__main__':
