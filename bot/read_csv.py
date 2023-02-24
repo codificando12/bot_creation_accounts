@@ -17,6 +17,7 @@ def email(data):
     return email
 
 def password(data):
+    df = pd.read_csv(data)
     password = [i for i in df['password']] 
     
     return password
